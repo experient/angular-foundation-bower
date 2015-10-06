@@ -2631,7 +2631,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
 
         var updateStickyPositioning = function() {
           if (!scope.stickyTopbar || !scope.isSticky()) {
-            return;
+            return false;
           }
 
           var distance = stickyoffset;
@@ -2643,6 +2643,8 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
             topbarContainer.removeClass('fixed');
             body.css('padding-top', '');
           }
+
+          return true;
         };
 
         var onResize = function() {
@@ -2665,8 +2667,8 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
         };
 
         var onScroll = function() {
-          updateStickyPositioning();
-          scope.$apply();
+          if(updateStickyPositioning())
+            scope.$apply();
         };
 
         scope.toggle = function(on) {
